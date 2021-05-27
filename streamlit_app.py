@@ -1,8 +1,8 @@
 import streamlit as st
 from PIL import Image
-from utils.visualization import *
 
 from age_gender_recognition import AgeGenderDetector
+from utils.visualization import *
 
 DEFAULT_CONFIDENCE_THRESHOLD = 0.5
 
@@ -16,19 +16,19 @@ if __name__ == '__main__':
         file_details = {"FileName": uploaded_file.name, "FileType": uploaded_file.type, "FileSize": uploaded_file.size}
         st.text('Check: Image details is:')
         st.write(file_details)
-    image = np.array(Image.open(uploaded_file))
+        image = np.array(Image.open(uploaded_file).convert('RGB'))
 
-    detection_confidence_threshold = st.slider(
-        "Step 2. Set detection confidence threshold.", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.01,
-    )
+        detection_confidence_threshold = st.slider(
+            "Step 2. Set detection confidence threshold.", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.01,
+        )
 
-    facenet = AgeGenderDetector(threshold=detection_confidence_threshold)
-    facenet.model_load()
+        facenet = AgeGenderDetector(threshold=detection_confidence_threshold)
+        facenet.model_load()
 
-    boxes = facenet.process_sample(image)
+        boxes = facenet.process_sample(image)
 
-    image_prop = draw_face_boxes_with_age_and_gender_on_image(image, boxes)
-    st.text('Step 3. Keep calm and see result.')
-    st.image(image_prop, channels="RGB", caption="Result of model working.")
-    st.text('Please give us credit pass')
-    st.write(":smile:")
+        image_prop = draw_face_boxes_with_age_and_gender_on_image(image, boxes)
+        st.text('Step 3. Keep calm and see result.')
+        st.image(image_prop, channels="RGB", caption="Result of model working.")
+        st.text('Please give us credit pass')
+        st.write(":smile:")

@@ -1,6 +1,7 @@
 import os
 
 from openvino.inference_engine import IECore
+
 from face_detection import FaceDetector
 from utils.utils import *
 from utils.visualization import *
