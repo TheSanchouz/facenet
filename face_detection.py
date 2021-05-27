@@ -67,8 +67,8 @@ class FaceDetector:
             h, w = self.input_height, self.input_width
             original_h = int((h - (pads[0] + pads[2])) / scale)
             original_w = int((w - (pads[1] + pads[3])) / scale)
-            print(h, w)
-            print(input_info)
+            # print(h, w)
+            # print(input_info)
             boxes = np.squeeze(result[self.output_name])
 
             image_predictions = []
@@ -109,7 +109,9 @@ if __name__ == '__main__':
 
     # image = cv2.imread(r'd:\facenet\openvino_emotion_recognition.png', cv2.IMREAD_COLOR)
     # image = cv2.imread(r'd:\facenet\avatar.jpg', cv2.IMREAD_COLOR)
-    image = cv2.imread(r'd:\facenet\816_large.jpg', cv2.IMREAD_COLOR)
+    # image = cv2.imread(r'D:\learn_materials\382006-3m\face_detection\facenet-main\816_large.jpg', cv2.IMREAD_COLOR)
+    image = cv2.imread(r'D:\learn_materials\382006-3m\face_detection\facenet-main\openvino_emotion_recognition.png',
+                       cv2.IMREAD_COLOR)
     boxes = facenet.process_sample(image)
 
     image_prop = draw_face_boxes_on_image(image, boxes)

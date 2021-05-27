@@ -1,7 +1,6 @@
 import os
 
 from openvino.inference_engine import IECore
-
 from face_detection import FaceDetector
 from utils.utils import *
 from utils.visualization import *
@@ -95,9 +94,9 @@ class AgeGenderDetector:
                 age = np.squeeze(result_emotion_prob["age_conv3"]) * 100
                 gender = np.squeeze(result_emotion_prob["prob"])
                 gender = (
-                    {"F": gender[0]}
+                    {"female": gender[0]}
                     if gender[0] > gender[1]
-                    else {"M": gender[1]}
+                    else {"male": gender[1]}
                 )
 
                 image_predictions.append(
@@ -118,18 +117,34 @@ class AgeGenderDetector:
         return results[0]
 
 
-if __name__ == '__main__':
-    facenet = AgeGenderDetector()
-    facenet.model_load()
+# if __name__ == '__main__':
+    # st.title("Welcome to the age gender recognition!")
+    # st.subheader("This model will recognize faces in the image and determine the gender and age of the person.")
+    #
+    # uploaded_file = st.file_uploader("Upload Files", type=['png', 'jpeg', 'jpg'])
+    # if uploaded_file is not None:
+    #     file_details = {"FileName": uploaded_file.name, "FileType": uploaded_file.type, "FileSize": uploaded_file.size}
+    #     st.write(file_details)
+    # image = np.array(Image.open(uploaded_file))
+    #
+    # detection_confidence_threshold = st.sidebar.slider(
+    #     "Detection confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.01,
+    # )
+    # facenet = AgeGenderDetector()
+    # facenet.model_load()
+
+    # image = cv2.imread(r'D:\learn_materials\382006-3m\face_detection\facenet-main\816_large.jpg', cv2.IMREAD_COLOR)
+    # image = cv2.imread(r'D:\learn_materials\382006-3m\face_detection\facenet-main\openvino_emotion_recognition.png', cv2.IMREAD_COLOR)
 
     # image = cv2.imread(r'd:\facenet\openvino_emotion_recognition.png', cv2.IMREAD_COLOR)
-    image = cv2.imread(r'd:\facenet\816_large.jpg', cv2.IMREAD_COLOR)
+    # image = cv2.imread(r'd:\facenet\816_large.jpg', cv2.IMREAD_COLOR)
     # image = cv2.imread(r'd:\facenet\avatar.jpg', cv2.IMREAD_COLOR)
-    boxes = facenet.process_sample(image)
+    # boxes = facenet.process_sample(image)
 
-    image_prop = draw_face_boxes_with_age_and_gender_on_image(image, boxes)
-    cv2.imshow('1', image_prop)
-    cv2.waitKey()
+    # image_prop = draw_face_boxes_with_age_and_gender_on_image(image, boxes)
+    # st.image(image_prop, channels="RGB", caption="Result of model working.")
+    # cv2.imshow('1', image_prop)
+    # cv2.waitKey()
 
     # cap = cv2.VideoCapture(0)
     # while True:
